@@ -1,0 +1,51 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+  font-size: 1.2rem;
+  transition: background-color 0.3s;
+}
+
+html {
+  box-sizing: border-box;
+  font-size: 10px;
+  @media (max-width: 1200px) {
+    font-size: 9px;
+  }
+  @media (max-width: 768px) {
+    font-size: 8px;
+  }
+  @media (max-width: 576px) {
+    font-size: 7px;
+  }
+  @media (min-width: 1800px) {
+    font-size: 12px;
+  }
+}
+
+body {
+  font-family: "poppins";
+  font-weight: 400;
+  color: var(--color-text);
+}
+
+button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+}
+
+input,
+button {
+  font-family: inherit;
+}
