@@ -59,7 +59,7 @@ const MainPage = () => {
         setHtmlContent(decodedHtml);
         toast.success("File processing started!");
         setProcessing(false);
-        navigate(`/${fileName}`, {state: { reportHtml: decodedHtml }});
+        navigate(`/${fileName}`, { state: { reportHtml: decodedHtml } });
       } else {
         console.error("File processing failed:", response.message);
         toast.error("File processing failed.");
@@ -89,10 +89,20 @@ const MainPage = () => {
         console.error("File clearing failed:", response.message);
         toast.error("File clearing failed.");
         setClearingFile(false);
+        console.log(response)
+        if (response.code === 500) {
+          setHtmlContent(null);
+          setClearingFile(false);
+          localStorage.removeItem("uploadedFileName");
+          window.location.href = "/safhat";
+        }
       }
     }
   };
   const fileName = localStorage.getItem("uploadedFileName");
+  React.useEffect(() => {
+    navigate("/safhat");
+  }, []);
   return (
     <>
       <div className="main-page">
@@ -114,14 +124,30 @@ const MainPage = () => {
             accept=".xls,.xlsx,.csv"
             onChange={handleFileUpload}
           />
-          <button className="btn btn__green" onClick={handleProcessFile} disabled={htmlContent || !fileName}>
-            {processing ? <ButtonLoader loaderColor="var(--color-green)" /> : "Process File"}
+          <button
+            className="btn btn__green"
+            onClick={handleProcessFile}
+            disabled={htmlContent || !fileName}
+          >
+            {processing ? (
+              <ButtonLoader loaderColor="var(--color-green)" />
+            ) : (
+              "Process File"
+            )}
           </button>
-          <button className="btn btn__red" onClick={handleClearFile} disabled={!fileName && !htmlContent}>
-            {clearingFile ? <ButtonLoader loaderColor="var(--color-red)" /> : "Clear File"}
+          <button
+            className="btn btn__red"
+            onClick={handleClearFile}
+            disabled={!fileName && !htmlContent}
+          >
+            {clearingFile ? (
+              <ButtonLoader loaderColor="var(--color-red)" />
+            ) : (
+              "Clear File"
+            )}
           </button>
           <div className="file-support">
-            <svg
+            {/* <svg
               id="info-icon"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -147,7 +173,8 @@ const MainPage = () => {
               >
                 i
               </text>
-            </svg>
+            </svg> */}
+            <span>*</span>
             <span className="file-support-text">
               Supports .xls, .xlsx and .csv files
             </span>
@@ -167,7 +194,6 @@ const MainPage = () => {
           </div>
         </div>
       </div>
-     
     </>
   );
 };

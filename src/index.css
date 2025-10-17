@@ -39,6 +39,10 @@ button {
   }
 }
 
+dialog {
+  border: none;
+}
+
 input:focus,
 select:focus,
 textarea:focus {

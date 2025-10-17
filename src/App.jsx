@@ -1,3 +1,4 @@
+import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 import TopBar from "./components/TopBar";
@@ -16,6 +17,7 @@ function App() {
         <TopBar />
         <Routes>
           <Route path="/" element={<MainPage />} />
+          <Route path="/safhat" element={<MainPage />} />
           <Route path="/:fileName" element={<ReportPage />} />
         </Routes>
         <Footer />
